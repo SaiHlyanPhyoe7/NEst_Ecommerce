@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  NotFoundException,
 } from '@nestjs/common';
 import { CustomersService } from './customers.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
@@ -32,8 +33,13 @@ export class CustomersController {
 
   @Get(':id')
   @ApiOkResponse({ type: CustomerEntity })
-  findOne(@Param('id') id: string) {
-    return this.customersService.findOne(id);
+  async findOne(@Param('id') id: string) {
+    const cusomer = await this.customersService.findOne(id);
+    if (!cusomer) {
+      throw new NotFoundException(`Customer with ${id} does not exist.`);
+    } else {
+      return cusomer;
+    }
   }
 
   @Patch(':id')
