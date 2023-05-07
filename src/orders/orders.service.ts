@@ -16,7 +16,10 @@ export class OrdersService {
   }
 
   findOne(id: string) {
-    return this.prisma.order.findUnique({ where: { id } });
+    return this.prisma.order.findUnique({
+      where: { id },
+      include: { customer: true },
+    });
   }
 
   update(id: string, updateOrderDto: UpdateOrderDto) {

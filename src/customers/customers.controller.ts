@@ -20,34 +20,39 @@ export class CustomersController {
 
   @Post()
   @ApiCreatedResponse({ type: CustomerEntity })
-  create(@Body() createCustomerDto: CreateCustomerDto) {
-    return this.customersService.create(createCustomerDto);
+  async create(@Body() createCustomerDto: CreateCustomerDto) {
+    return new CustomerEntity(
+      await this.customersService.create(createCustomerDto),
+    );
   }
 
   @Get()
   @ApiOkResponse({ type: CustomerEntity, isArray: true })
-  findAll() {
-    return this.customersService.findAll();
+  async findAll() {
+    const customers = await this.customersService.findAll();
+    return customers.map((customer) => new CustomerEntity(customer));
   }
 
   @Get(':id')
   @ApiOkResponse({ type: CustomerEntity })
-  findOne(@Param('id') id: string) {
-    return this.customersService.findOne(id);
+  async findOne(@Param('id') id: string) {
+    return new CustomerEntity(await this.customersService.findOne(id));
   }
 
   @Patch(':id')
   @ApiOkResponse({ type: CustomerEntity })
-  update(
+  async update(
     @Param('id') id: string,
     @Body() updateCustomerDto: UpdateCustomerDto,
   ) {
-    return this.customersService.update(id, updateCustomerDto);
+    return new CustomerEntity(
+      await this.customersService.update(id, updateCustomerDto),
+    );
   }
 
   @Delete(':id')
   @ApiOkResponse({ type: CustomerEntity })
-  remove(@Param('id') id: string) {
-    return this.customersService.remove(id);
+  async remove(@Param('id') id: string) {
+    return new CustomerEntity(await this.customersService.remove(id));
   }
 }

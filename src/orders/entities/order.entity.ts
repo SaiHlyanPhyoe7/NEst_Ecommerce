@@ -33,4 +33,11 @@ export class OrderEntity implements Order {
 
   @ApiProperty({ required: false, type: ProductEntity })
   product: ProductEntity;
+
+  constructor({ customer, ...data }: Partial<OrderEntity>) {
+    Object.assign(this, data);
+    if (customer) {
+      this.customer = new CustomerEntity(customer);
+    }
+  }
 }
