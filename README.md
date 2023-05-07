@@ -35,14 +35,15 @@ $ npm install
 ## Running the app
 
 ```bash
-# development
-$ npm run start
+# docker run
+$ docker-compose up -d
+
+# database migrate
+$ npx prisma migrate dev
 
 # watch mode
 $ npm run start:dev
 
-# production mode
-$ npm run start:prod
 ```
 
 ## Test
