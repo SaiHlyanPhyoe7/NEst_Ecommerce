@@ -28,6 +28,9 @@ export class OrderEntity implements Order {
   @ApiProperty()
   productId: string;
 
+  @ApiProperty()
+  quantity: number;
+
   @ApiProperty({ required: false, type: CustomerEntity })
   customer: CustomerEntity;
 
