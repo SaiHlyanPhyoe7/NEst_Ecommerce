@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { CustomerAlreadyExistsException } from 'src/customExceptionError/customerException/duplicate-customer.exception';
-import { CustomerNotFoundException } from 'src/customExceptionError/customerException/customer-not-found.exception';
+import { CustomerAlreadyExistsException } from '../customExceptionError/customerException/duplicate-customer.exception';
+import { CustomerNotFoundException } from '../customExceptionError/customerException/customer-not-found.exception';
 
 @Injectable()
 export class CustomersService {
