@@ -31,7 +31,8 @@
     "class-validator": "^0.14.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0",
-    "swagger-ui-express": "^4.6.2"
+    "swagger-ui-dist": "^4.18.3",
+    "swagger-ui-express": "^4.6.3"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",
