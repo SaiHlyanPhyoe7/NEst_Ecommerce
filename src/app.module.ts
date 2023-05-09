@@ -18,7 +18,7 @@ import { join } from 'path';
     ReviewsModule,
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'swagger-static'),
-      serveRoot: process.env.NODE_ENV === 'development' ? '/' : '/swagger',
+      serveRoot: process.env.NODE_ENV === 'development' ? '/' : '/api',
     }),
   ],
   controllers: [AppController],
