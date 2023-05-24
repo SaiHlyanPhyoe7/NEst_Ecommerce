@@ -4,6 +4,9 @@ import { UpdateCustomerDto } from './dto/update-customer.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CustomerAlreadyExistsException } from '../customExceptionError/customerException/duplicate-customer.exception';
 import { CustomerNotFoundException } from '../customExceptionError/customerException/customer-not-found.exception';
+import * as bcrypt from 'bcrypt';
+
+const roundsOfHashing = 10;
 
 @Injectable()
 export class CustomersService {
@@ -17,8 +20,15 @@ export class CustomersService {
     });
     if (existingCustomer) {
       throw new CustomerAlreadyExistsException();
+    } else {
+      const hashPassword = await bcrypt.hash(
+        createCustomerDto.password,
+        roundsOfHashing,
+      );
+      createCustomerDto.password = hashPassword;
+
+      return this.prisma.customer.create({ data: createCustomerDto });
     }
-    return this.prisma.customer.create({ data: createCustomerDto });
   }
 
   findAll() {
@@ -33,7 +43,14 @@ export class CustomersService {
     return customer;
   }
 
-  update(id: string, updateCustomerDto: UpdateCustomerDto) {
+  async update(id: string, updateCustomerDto: UpdateCustomerDto) {
+    if (updateCustomerDto.password) {
+      updateCustomerDto.password = await bcrypt.hash(
+        updateCustomerDto.password,
+        roundsOfHashing,
+      );
+    }
+
     return this.prisma.customer.update({
       where: { id },
       data: updateCustomerDto,

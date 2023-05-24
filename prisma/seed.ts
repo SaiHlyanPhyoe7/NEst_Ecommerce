@@ -1,19 +1,34 @@
 import { PrismaClient } from '@prisma/client';
+import * as bcrypt from 'bcrypt';
+import { create } from 'domain';
 
 const prisma = new PrismaClient();
 
+const roundsOfHashing = 10;
+
 async function main() {
-  const customer1 = await prisma.customer.create({
-    data: {
+  const passwordJane = await bcrypt.hash('password-jane', roundsOfHashing);
+  const passwordJohn = await bcrypt.hash('password-john', roundsOfHashing);
+
+  const customer1 = await prisma.customer.upsert({
+    where: { email: 'jane@example.com' },
+    update: {
+      password: passwordJane,
+    },
+    create: {
       email: 'jane@example.com',
-      password: 'password-jane',
+      password: passwordJane,
     },
   });
 
-  const customer2 = await prisma.customer.create({
-    data: {
+  const customer2 = await prisma.customer.upsert({
+    where: { email: 'john@example.com' },
+    update: {
+      password: passwordJohn,
+    },
+    create: {
       email: 'john@example.com',
-      password: 'password-john',
+      password: passwordJohn,
     },
   });
 

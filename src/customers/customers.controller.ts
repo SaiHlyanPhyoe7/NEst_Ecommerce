@@ -6,12 +6,19 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { CustomersService } from './customers.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
-import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiTags,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
 import { CustomerEntity } from './entities/customer.entity';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('customers')
 @ApiTags('customers')
@@ -27,6 +34,8 @@ export class CustomersController {
   }
 
   @Get()
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @ApiOkResponse({ type: CustomerEntity, isArray: true })
   async findAll() {
     const customers = await this.customersService.findAll();
@@ -34,12 +43,16 @@ export class CustomersController {
   }
 
   @Get(':id')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @ApiOkResponse({ type: CustomerEntity })
   async findOne(@Param('id') id: string) {
     return new CustomerEntity(await this.customersService.findOne(id));
   }
 
   @Patch(':id')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @ApiOkResponse({ type: CustomerEntity })
   async update(
     @Param('id') id: string,
@@ -51,6 +64,8 @@ export class CustomersController {
   }
 
   @Delete(':id')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @ApiOkResponse({ type: CustomerEntity })
   async remove(@Param('id') id: string) {
     return new CustomerEntity(await this.customersService.remove(id));

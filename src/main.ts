@@ -19,6 +19,7 @@ async function bootstrap() {
     .setTitle('Ecommerce API SHP')
     .setDescription('SHP Ecommerce API description')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
