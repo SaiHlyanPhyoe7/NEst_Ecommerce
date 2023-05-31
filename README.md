@@ -35,14 +35,14 @@ $ npm install
 ## Running the app
 
 ```bash
-# docker run
-$ docker-compose up -d
-
-# database migrate
-$ npx prisma migrate dev
+# Project Start Script
+$ npm run begin
 
 # watch mode
 $ npm run start:dev
+
+# db watch
+$ npx prisma studio
 
 ```
 
