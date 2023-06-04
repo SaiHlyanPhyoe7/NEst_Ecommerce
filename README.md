@@ -39,8 +39,8 @@
 # Project Start Script
 $ npm run begin
 
-# Docker Run
-$ docker-compose up -d
+# check docker running or not if not run this
+$ docker compose up -d
 
 # watch mode
 $ npm run start:dev

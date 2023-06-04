@@ -6,7 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "begin": "npm install && npx prisma migrate dev",
+    "begin": "npm install && docker compose up -d && npx prisma migrate dev",
     "build": "prisma generate && nest build",
     "postinstall": "prisma generate",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
