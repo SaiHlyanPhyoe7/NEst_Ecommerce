@@ -28,15 +28,19 @@
 
 ## Installation
 
-```bash
-$ npm install
-```
-
 ## Running the app
 
 ```bash
+
+## add env from env.example
+
+## running port 3010
+
 # Project Start Script
 $ npm run begin
+
+# Docker Run
+$ docker-compose up -d
 
 # watch mode
 $ npm run start:dev
